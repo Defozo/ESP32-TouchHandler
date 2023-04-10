@@ -20,7 +20,7 @@
 	},
 	"headers": ["TouchHandler.h"],
 	"export": {
-		"include": "TouchHandler.h"
+		"exclude": ".git/"
 	},
 	"examples": [
     {

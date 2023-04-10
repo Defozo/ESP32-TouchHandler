@@ -32,22 +32,23 @@ void TouchHandler::begin() {
 bool TouchHandler::isTouched(int index) {
   if (index >= 0 && index < _numPins) {
     int newValue = touchRead(_touchPins[index]);
-    float threshold = _medians[index] - _factor * _touchStdDevs[index];
+    float threshold = getThreshold(index);
     return newValue < threshold;
   }
   return false;
 }
 
-int TouchHandler::getTouchValue(int index) {
+float TouchHandler::getThreshold(int index) {
   if (index >= 0 && index < _numPins) {
-    return touchRead(_touchPins[index]);
+    return _medians[index] - _factor * _touchStdDevs[index] - _offset;
   }
   return -1;
 }
 
-float TouchHandler::getThreshold(int index) {
+
+int TouchHandler::getTouchValue(int index) {
   if (index >= 0 && index < _numPins) {
-    return _medians[index] - _factor * _touchStdDevs[index];
+    return touchRead(_touchPins[index]);
   }
   return -1;
 }

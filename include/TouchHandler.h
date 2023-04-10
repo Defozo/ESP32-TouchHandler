@@ -5,7 +5,7 @@
 
 class TouchHandler {
 public:
-  TouchHandler(const int* touchPins, int numPins, int samplePeriod = 10, int initPeriod = 5000, int filterPeriod = 10000, float factor = 4.0, float offset = 0.0);
+  TouchHandler(const int* touchPins, int numPins, int samplePeriod = 10, int initPeriod = 5000, int filterPeriod = 10000, float factor = 6.0, float offset = 20.0);
   void begin();
   bool isTouched(int index);
   int getTouchValue(int index);

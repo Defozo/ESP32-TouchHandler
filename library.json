@@ -1,0 +1,25 @@
+{
+	"name": "TouchHandler",
+	"version": "1.0.0",
+	"description": "A library that provides adaptive threshold for touch sensors on ESP32 microcontrollers.",
+	"keywords": "ESP32, touch sensor, threshold",
+	"repository": {
+		"type": "git",
+		"url": "git@github.com:Defozo/ESP32-TouchHandler.git"
+	},
+	"authors": [{
+		"name": "Defozo",
+		"email": "defozo+touchhandler@gmail.com"
+	}],
+	"license": "MIT",
+	"homepage": "https://github.com/Defozo/ESP32-TouchHandler",
+	"frameworks": "arduino",
+	"platforms": "espressif32",
+	"dependencies": {
+		"arduino": "^1.0.0"
+	},
+	"headers": ["TouchHandler.h"],
+	"export": {
+		"include": "TouchHandler.h"
+	}
+}

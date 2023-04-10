@@ -26,7 +26,6 @@ Under the [env:...] section corresponding to your development board, add the fol
 ```
 lib_deps =
     https://github.com/Defozo/ESP32-TouchHandler/
-where <username> is the GitHub username and <repository> is the name of the repository where the library is hosted.
 ```
 
 Save the changes to platformio.ini.

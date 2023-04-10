@@ -21,5 +21,11 @@
 	"headers": ["TouchHandler.h"],
 	"export": {
 		"include": "TouchHandler.h"
-	}
+	},
+	"examples": [
+    {
+        "name": "Turn on LED on touch",
+        "base": "examples/turn_on_led_on_touch",
+        "files": ["main.cpp"]
+    }]
 }

@@ -1,6 +1,6 @@
 {
 	"name": "TouchHandler",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"description": "A library that provides adaptive threshold for touch sensors on ESP32 microcontrollers.",
 	"keywords": "ESP32, touch sensor, threshold",
 	"repository": {

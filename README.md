@@ -1,3 +1,5 @@
+[![PlatformIO Registry](https://badges.registry.platformio.org/packages/defozo/library/TouchHandler.svg)](https://registry.platformio.org/libraries/defozo/TouchHandler)
+
 # TouchHandler
 
 TouchHandler is an Arduino library for ESP32 that provides an adaptive threshold mechanism for built-in touch sensors. It simplifies the process of detecting touch events and automatically adjusts the threshold based on environmental changes and sensor noise.
@@ -97,17 +99,17 @@ The library has several default parameter values that have been chosen based on 
 
 Here is an explanation of the default values:
 
-samplePeriod (10 ms): The time interval between touch sensor readings. A shorter period results in faster updates, but may increase noise.
+- `samplePeriod` (10 ms): The time interval between touch sensor readings. A shorter period results in faster updates, but may increase noise.
 
-initPeriod (5000 ms): The duration of the initialization phase during which the library computes the initial median and standard deviation values for each touch sensor.
+- `initPeriod` (5000 ms): The duration of the initialization phase during which the library computes the initial median and standard deviation values for each touch sensor.
 
-filterPeriod (10000 ms): The time period over which the median and standard deviation values are updated after the initialization phase.
+- `filterPeriod` (10000 ms): The time period over which the median and standard deviation values are updated after the initialization phase.
 
-sensitivity (0.5): A value between 0 and 1 that controls the sensitivity of touch detection. A higher value makes the touch detection more sensitive but may also increase the likelihood of false positives.
+- `sensitivity` (0.5): A value between 0 and 1 that controls the sensitivity of touch detection. A higher value makes the touch detection more sensitive but may also increase the likelihood of false positives.
 
-factor (12.0): A multiplier applied to the standard deviation when calculating the touch threshold. A higher factor makes the touch detection less sensitive to noise but may also decrease the responsiveness.
+- `factor` (12.0): A multiplier applied to the standard deviation when calculating the touch threshold. A higher factor makes the touch detection less sensitive to noise but may also decrease the responsiveness.
 
-offset (40.0): A constant value subtracted from the median when calculating the touch threshold. This value helps to account for any baseline shifts in the touch sensor readings.
+- `offset` (40.0): A constant value subtracted from the median when calculating the touch threshold. This value helps to account for any baseline shifts in the touch sensor readings.
 
 These default values can be changed during the initialization of the TouchHandler object or by using the provided getter and setter functions.
 
@@ -117,10 +119,11 @@ The TouchHandler library provides a set of getter and setter functions that allo
 
 Here are some examples of the available functions:
 
-`setSensitivity(float sensitivity)`: Set the sensitivity parameter value.
-`getSensitivity() const`: Get the current sensitivity parameter value.
-`setSamplePeriod(int samplePeriod)`: Set the sample period parameter value.
-`getSamplePeriod() const`: Get the current sample period parameter value.
+- `setSensitivity(float sensitivity)`: Set the sensitivity parameter value.
+- `getSensitivity() const`: Get the current sensitivity parameter value.
+- `setSamplePeriod(int samplePeriod)`: Set the sample period parameter value.
+- `getSamplePeriod() const`: Get the current sample period parameter value.
+
 These functions can be called at any time during the execution of the program, allowing developers to dynamically adjust the touch sensor behavior as needed.
 
 For a complete list of available functions, please refer to the TouchHandler.h header file.

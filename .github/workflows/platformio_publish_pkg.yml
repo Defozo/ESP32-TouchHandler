@@ -4,24 +4,24 @@ on:
   push:
     tags:
       - 'v*.*.*'
-      
+
 env:
   PLATFORMIO_AUTH_TOKEN: ${{ secrets.PLATFORMIO_AUTH_TOKEN }}
-  
+
 jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
-      - name: Use Node.js 16.x
-        uses: actions/setup-node@v2
+      - name: Set up Python
+        uses: actions/setup-python@v3
         with:
-          node-version: '16.x'
+          python-version: '3.x'
 
-      - name: Install dependencies
-        run: npm install
+      - name: Install PlatformIO
+        run: pip install -U platformio
 
       - name: Publish to PlatformIO Registry
         run: pio pkg publish

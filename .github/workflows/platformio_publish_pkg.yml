@@ -1,25 +1,29 @@
-name: Publish Library
+name: Publish Library to PlatformIO Registry
 
 on:
   push:
     tags:
       - 'v*.*.*'
-
+      
+env:
+  PLATFORMIO_AUTH_TOKEN: ${{ secrets.PLATFORMIO_AUTH_TOKEN }}
+  
 jobs:
-  build:
+  publish:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v2
-      - name: Set up Python
-        uses: actions/setup-python@v2
+
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v2
         with:
-          python-version: '3.x'
+          node-version: '16.x'
+
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: npm install
+
       - name: Publish to PlatformIO Registry
+        run: pio pkg publish
         env:
-          PLATFORMIO_AUTH_TOKEN: ${{ secrets.PLATFORMIO_AUTH_TOKEN }}
-        run: |
-          platformio account login $PLATFORMIO_AUTH_TOKEN
-          platformio lib publish --library-dir=. --release
+          PLATFORMIO_AUTH_TOKEN: ${{ env.PLATFORMIO_AUTH_TOKEN }}

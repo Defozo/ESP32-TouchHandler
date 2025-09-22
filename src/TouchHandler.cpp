@@ -1,7 +1,16 @@
 #include "TouchHandler.h"
 
-TouchHandler::TouchHandler(const int* touchPins, int numPins, int samplePeriod, int initPeriod, int filterPeriod, float sensitivity, float factor, float offset)
-  : _touchPins(touchPins), _numPins(numPins), _samplePeriod(samplePeriod), _initPeriod(initPeriod), _filterPeriod(filterPeriod), _sensitivity(constrain(sensitivity, 0.0, 1.0)), _factor(factor), _offset(offset), _numInitSamples(20) {
+TouchHandler::TouchHandler(const int* touchPins, int numPins, const TouchConfig& config)
+  : _touchPins(touchPins),
+    _numPins(numPins),
+    _samplePeriod(config.samplePeriod),
+    _initPeriod(config.initPeriod),
+    _filterPeriod(config.filterPeriod),
+    _sensitivity(constrain(config.sensitivity, 0.0f, 1.0f)),
+    _factor(config.factor),
+    _offset(config.offset),
+    _numInitSamples(config.numInitSamples) {
+
   _medians = new float[_numPins];
   _touchStdDevs = new float[_numPins];
   _epsilon_m = new float[_numPins];

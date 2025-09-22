@@ -21,12 +21,12 @@ void TouchHandler::begin() {
   _start_time = millis();
 
   // Initialize touch sensor medians and touchStdDevs
-  for (int i = 0; i < _numPins; i++) {
+  for (int i = 0; i < _numPins; ++i) {
     uint16_t initialValue = touchRead(_touchPins[i]);
     _medians[i] = initialValue;
-    _touchStdDevs[i] = 0.0;
+    _touchStdDevs[i] = 0.0f;
 
-    for (int j = 0; j < _numInitSamples; j++) {
+    for (int j = 0; j < _numInitSamples; ++j) {
       uint16_t newValue = touchRead(_touchPins[i]);
       float diff = newValue - initialValue;
       _touchStdDevs[i] += abs(diff);
@@ -62,7 +62,7 @@ int TouchHandler::getTouchValue(int index) {
 }
 
 void TouchHandler::update() {
-  for (int i = 0; i < _numPins; i++) {
+  for (int i = 0; i < _numPins; ++i) {
     uint16_t newValue = touchRead(_touchPins[i]);
 
     float diff = newValue - _medians[i];
@@ -78,9 +78,9 @@ void TouchHandler::update() {
 
 // Getter and setter functions
 void TouchHandler::setSensitivity(float sensitivity) {
-  _sensitivity = constrain(sensitivity, 0.0, 1.0);
-  _factor = _factor * (1.0 - _sensitivity);
-  _offset = _offset * (1.0 - _sensitivity);
+  _sensitivity = constrain(sensitivity, 0.0f, 1.0f);
+  _factor = _factor * (1.0f - _sensitivity);
+  _offset = _offset * (1.0f - _sensitivity);
 }
 
 float TouchHandler::getSensitivity() const {

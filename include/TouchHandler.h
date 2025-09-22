@@ -3,18 +3,38 @@
 
 #include <Arduino.h>
 
+/// @brief Configuration object for TouchHandler.
+/// @details Groups all parameters with default values to avoid long constructor signatures.
+struct TouchConfig {
+  static constexpr int samplePeriod = 10;      ///< Sampling period in milliseconds.
+  static constexpr int initPeriod = 5000;      ///< Initialization period in milliseconds.
+  static constexpr int filterPeriod = 10000;   ///< Filtering period in milliseconds.
+  static constexpr float sensitivity = 0.5f;    ///< Sensitivity factor for touch detection.
+  static constexpr float factor = 12.0f;        ///< Scaling factor used in threshold calculation.
+  static constexpr float offset = 40.0f;        ///< Offset added to baseline for threshold detection.
+  static constexpr int numInitSamples = 50;    ///< Number of samples collected during initialization.
+
+   /// Allow constexpr construction
+  constexpr TouchConfig() = default;
+};
+
 class TouchHandler {
 public:
-  TouchHandler(const int* touchPins, int numPins, int samplePeriod = 10, int initPeriod = 5000, int filterPeriod = 10000, float sensitivity = 0.5, float factor = 12.0, float offset = 40.0);
+  /// @brief Construct a new TouchHandler.
+  /// @param touchPins Array of pin numbers used for touch sensing.
+  /// @param numPins Number of pins in the array.
+  /// @param config Configuration parameters (optional, defaults will be applied).
+  TouchHandler(const int* touchPins, int numPins, const TouchConfig& config = TouchConfig());
+
   void begin();
   bool isTouched(int index);
   int getTouchValue(int index);
   float getThreshold(int index);
   void update();
+
+  // Getter / setter
   void setNumInitSamples(int numInitSamples);
   int getNumInitSamples() const;
-
-  // Getter and setter functions
   void setSensitivity(float sensitivity);
   float getSensitivity() const;
   void setSamplePeriod(int samplePeriod);

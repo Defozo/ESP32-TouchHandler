@@ -1,7 +1,16 @@
 #include "TouchHandler.h"
 
-TouchHandler::TouchHandler(const int* touchPins, int numPins, int samplePeriod, int initPeriod, int filterPeriod, float sensitivity, float factor, float offset)
-  : _touchPins(touchPins), _numPins(numPins), _samplePeriod(samplePeriod), _initPeriod(initPeriod), _filterPeriod(filterPeriod), _sensitivity(constrain(sensitivity, 0.0, 1.0)), _factor(factor), _offset(offset), _numInitSamples(20) {
+TouchHandler::TouchHandler(const int* touchPins, int numPins, const TouchConfig& config)
+  : _touchPins(touchPins),
+    _numPins(numPins),
+    _samplePeriod(config.samplePeriod),
+    _initPeriod(config.initPeriod),
+    _filterPeriod(config.filterPeriod),
+    _sensitivity(constrain(config.sensitivity, 0.0f, 1.0f)),
+    _factor(config.factor),
+    _offset(config.offset),
+    _numInitSamples(config.numInitSamples) {
+
   _medians = new float[_numPins];
   _touchStdDevs = new float[_numPins];
   _epsilon_m = new float[_numPins];
@@ -12,12 +21,12 @@ void TouchHandler::begin() {
   _start_time = millis();
 
   // Initialize touch sensor medians and touchStdDevs
-  for (int i = 0; i < _numPins; i++) {
+  for (int i = 0; i < _numPins; ++i) {
     uint16_t initialValue = touchRead(_touchPins[i]);
     _medians[i] = initialValue;
-    _touchStdDevs[i] = 0.0;
+    _touchStdDevs[i] = 0.0f;
 
-    for (int j = 0; j < _numInitSamples; j++) {
+    for (int j = 0; j < _numInitSamples; ++j) {
       uint16_t newValue = touchRead(_touchPins[i]);
       float diff = newValue - initialValue;
       _touchStdDevs[i] += abs(diff);
@@ -53,7 +62,7 @@ int TouchHandler::getTouchValue(int index) {
 }
 
 void TouchHandler::update() {
-  for (int i = 0; i < _numPins; i++) {
+  for (int i = 0; i < _numPins; ++i) {
     uint16_t newValue = touchRead(_touchPins[i]);
 
     float diff = newValue - _medians[i];
@@ -69,9 +78,9 @@ void TouchHandler::update() {
 
 // Getter and setter functions
 void TouchHandler::setSensitivity(float sensitivity) {
-  _sensitivity = constrain(sensitivity, 0.0, 1.0);
-  _factor = _factor * (1.0 - _sensitivity);
-  _offset = _offset * (1.0 - _sensitivity);
+  _sensitivity = constrain(sensitivity, 0.0f, 1.0f);
+  _factor = _factor * (1.0f - _sensitivity);
+  _offset = _offset * (1.0f - _sensitivity);
 }
 
 float TouchHandler::getSensitivity() const {

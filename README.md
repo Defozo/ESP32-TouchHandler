@@ -43,11 +43,25 @@ Now, when you build your project, PlatformIO will download the library from the 
 #include <TouchHandler.h>
 ```
 
-2. Create a TouchHandler object, providing an array of touch sensor pins and the number of pins.
+2. Create a TouchHandler object by providing an array of touch sensor pins, 
+   the number of pins, and a configuration structure specifying parameters 
+   like sample period, initialization period, filter period, sensitivity, 
+   factor, offset, and the number of initial samples.
 
 ```cpp
 const int touchPins[NUM_TOUCH_PINS] = {4, 12, 13, 14, 15, 27, 32, 33};
-TouchHandler touchHandler(touchPins, NUM_TOUCH_PINS);
+
+TouchConfig config = {
+  .samplePeriod = 10,       // in milliseconds.
+  .initPeriod = 5000,       // Initialization period in milliseconds.
+  .filterPeriod = 10000,    // Filtering period in milliseconds.
+  .sensitivity = 0.5f,      // Sensitivity factor for touch detection.
+  .factor = 12.0f,          // Scaling factor used in threshold calculation.
+  .offset = 40.0f,          // Offset added to baseline for threshold detection.
+  .numInitSamples = 50      //  Number of samples collected during initialization.
+};
+
+TouchHandler touchHandler(touchPins, NUM_TOUCH_PINS, config);
 ```
 
 3. In the setup() function, call the begin() method on the TouchHandler object.
@@ -137,7 +151,18 @@ Here is an example of how to use the TouchHandler library in a simple Arduino sk
 
 const int NUM_TOUCH_PINS = 8;
 const int touchPins[NUM_TOUCH_PINS] = {4, 12, 13, 14, 15, 27, 32, 33};
-TouchHandler touchHandler(touchPins, NUM_TOUCH_PINS);
+
+TouchConfig config = {
+  .samplePeriod = 10,       // in milliseconds.
+  .initPeriod = 5000,       // Initialization period in milliseconds.
+  .filterPeriod = 10000,    // Filtering period in milliseconds.
+  .sensitivity = 0.5f,      // Sensitivity factor for touch detection.
+  .factor = 12.0f,          // Scaling factor used in threshold calculation.
+  .offset = 40.0f,          // Offset added to baseline for threshold detection.
+  .numInitSamples = 50      //  Number of samples collected during initialization.
+};
+
+TouchHandler touchHandler(touchPins, NUM_TOUCH_PINS, config);
 
 void setup() {
   Serial.begin(115200);
@@ -206,4 +231,6 @@ The TouchHandler library is released under the MIT License. This means that you 
 
 ## Disclaimer
 
-This code and documentation have been generated using ChatGPT, a large language model based on OpenAI's GPT-4 architecture. While efforts have been made to provide accurate information and guidance, please be aware that the content may not be perfect and should be used at your own discretion.
+This project is a fork of https://github.com/Defozo/ESP32-TouchHandler
+The initial documentation or examples may have been assisted by AI tools, but all further modifications and fixes were made manually by the fork maintainer.  
+The maintainer takes full responsibility for the changes introduced in this fork.

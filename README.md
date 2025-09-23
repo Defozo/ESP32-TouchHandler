@@ -233,4 +233,3 @@ The TouchHandler library is released under the MIT License. This means that you 
 
 This project is a fork of https://github.com/Defozo/ESP32-TouchHandler
 The initial documentation or examples may have been assisted by AI tools, but all further modifications and fixes were made manually by the fork maintainer.  
-The maintainer takes full responsibility for the changes introduced in this fork.

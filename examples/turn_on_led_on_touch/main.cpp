@@ -10,7 +10,19 @@
 const int touchPins[] = {4, 12, 13, 14, 15, 27, 32, 33};
 const int numTouchPins = sizeof(touchPins) / sizeof(touchPins[0]);
 
-TouchHandler touchHandler(touchPins, numTouchPins);
+// Configure touch parameters
+TouchConfig config = {
+  .samplePeriod = 10,       // in milliseconds
+  .initPeriod = 5000,       // Initialization period in milliseconds
+  .filterPeriod = 10000,    // Filtering period in milliseconds
+  .sensitivity = 0.5f,      // Sensitivity factor for touch detection
+  .factor = 12.0f,          // Scaling factor used in threshold calculation
+  .offset = 40.0f,          // Offset added to baseline for threshold detection
+  .numInitSamples = 50      // Number of samples collected during initialization
+};
+
+// Initialize TouchHandler with touch pins, number of pins, and configuration
+TouchHandler touchHandler(touchPins, numTouchPins, config);
 
 void setup() {
   Serial.begin(115200);
@@ -21,7 +33,7 @@ void setup() {
 void loop() {
   touchHandler.update();
 
-  for (int i = 0; i < numTouchPins; i++) {
+  for (int i = 0; i < numTouchPins; ++i) {
     if (touchHandler.isTouched(i)) {
       digitalWrite(LED_PIN, HIGH);
       Serial.print("Touch pin ");

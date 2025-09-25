@@ -231,5 +231,4 @@ The TouchHandler library is released under the MIT License. This means that you 
 
 ## Disclaimer
 
-This project is a fork of https://github.com/Defozo/ESP32-TouchHandler
-The initial documentation or examples may have been assisted by AI tools, but all further modifications and fixes were made manually by the fork maintainer.  
+This code and documentation have been generated using ChatGPT, a large language model based on OpenAI's GPT-4 architecture. While efforts have been made to provide accurate information and guidance, please be aware that the content may not be perfect and should be used at your own discretion.
